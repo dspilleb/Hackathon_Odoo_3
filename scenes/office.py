@@ -19,14 +19,24 @@ COMPUTER_SPRITE = pygame.transform.smoothscale(COMPUTER_SPRITE, (SCREEN_BOT_COOR
 COMPUTER_SPRITE.set_alpha(48)
 
 emails = [
-	"Bonjour, voici le premier email à Traiter",
+	"Salut Florence! J'ai oubliée mon code, tu peux me l'envoyer?",
+	"Je ne sais pas quoi offrir comme cadeau à Florent, tu as des idées?",
+	"T'as vu?! Lou est enfin passée badge argent sur Phished.io!"
 ]
 
 questions = [
 	{
 		"Question": "Qui aime le chocolat le plus?",
 		"Answer": "Lou"
-	}, 
+	},
+	{
+		"Question": "C'est quoi le code de Florence?",
+		"Answer": "5168451213568978155"
+	},
+	{
+		"Question": "C'est possible d'être embauché à Odoo sans cv?",
+		"Answer": "oui"
+	},
 ]
 
 

@@ -11,6 +11,8 @@ COW_SPRITES = [pygame.image.load('assets/images/Odoo_cow/cow0.png'), pygame.imag
 Highway_sprite = pygame.image.load('assets/images/Highway.png')
 Highway_sprite = pygame.transform.rotate(Highway_sprite, 90)
 Highway_sprite = pygame.transform.smoothscale(Highway_sprite, (WIDTH, HEIGHT))
+ODOO_BUILDING = pygame.image.load('assets/images/odoo building.png')
+ODOO_BUILDING = pygame.transform.smoothscale_by(ODOO_BUILDING, 0.7)
 
 #avoir plusieurs textures
 #accélaration de voiture non linéaire
@@ -95,6 +97,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 
 def draw_final_line(display : pygame.Surface, final_line : Final_line):
 	pygame.draw.line(display, Colors.RED, (final_line.x, 0), (final_line.x, HEIGHT), LINE_THICKNESS)
+	display.blit(ODOO_BUILDING, (final_line.x + 150, 0))
 	return
 
 def update_final_line_position(final_line : Final_line, car : Car):

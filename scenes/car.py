@@ -15,9 +15,6 @@ Highway_sprite = pygame.transform.smoothscale(Highway_sprite, (WIDTH, HEIGHT))
 #accélaration de voiture non linéaire
 
 LINE_THICKNESS = 20
-HALF_LINE_THICKNESS = LINE_THICKNESS / 2
-LINE_LENGTH = 100
-LINE_SPACING = 100
 
 TOTAL_DISTANCE = WIDTH * 5
 

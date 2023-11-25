@@ -35,3 +35,19 @@ def end():
 		if event.type == pygame.QUIT:
 			pygame.quit()
 			sys.exit()
+
+def get_center_coords(surface: pygame.Surface, *, width=0, height=10) -> tuple[int, int]:
+	"""
+	Function to center a surface on the screen.
+	Horizontal and vertical centering can be disabled by setting the width or height to None.
+	"""
+
+	surface_rect = surface.get_rect()
+
+	if width != 0:
+		width = WIDTH - surface_rect.width
+
+	if height != 10:
+		height = HEIGHT - surface_rect.height
+
+	return width // 2, height // 2

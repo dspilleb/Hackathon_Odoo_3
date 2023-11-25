@@ -8,7 +8,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	\nFirst mini-game with the office and emails"""
 	
 	# load the background image
-	bg = pygame.image.load('assets/images/bg_office.jpeg')
+	bg = pygame.image.load('assets/images/bureau.png')
 
 	while 1:
 		display.blit(bg, (0, 0))

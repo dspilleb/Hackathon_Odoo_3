@@ -6,13 +6,15 @@ pygame.init()
 
 # creating window
 display = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Odoo Game")
 
 # creating our frame regulator
 clock = pygame.time.Clock()
 
-from scenes import context, office
+from scenes import context, office, car
 
-context.activate(display, clock, FPS)
+# context.activate(display, clock, FPS)
 
-office.activate(display, clock, FPS)
+# office.activate(display, clock, FPS)
+car.activate(display, clock, FPS)
 

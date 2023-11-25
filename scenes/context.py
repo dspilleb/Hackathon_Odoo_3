@@ -10,7 +10,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	# scrolling text to explain the game over odoo promotional background music
 
 	# load the background image
-	bg = pygame.image.load('assets/images/bg_filler.png')
+	bg = pygame.image.load('assets/images/ecran-noir.png')
 	# use Arial font
 	font = pygame.font.SysFont('Arial', 25)
 	# create the text cented horizontally
@@ -32,14 +32,14 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	return
 
 
-def blit_text(surface, text, pos, font, color):
+def blit_text(surface : pygame.Surface, text : str, pos :tuple[int,int] , font : pygame.font.Font, color : tuple[int,int,int]):
     words = [word.split(' ') for word in text.splitlines()]  # 2D array where each row is a list of words.
     space = font.size(' ')[0]  # The width of a space.
-    max_width, max_height = surface.get_size()
+    max_width, max_height = surface.get_size() #size of the window where we display the text
     x, y = pos
     for line in words:
         for word in line:
-            word_surface = font.render(word, 0, color)
+            word_surface = font.render(word, False, color)
             word_width, word_height = word_surface.get_size()
             if x + word_width >= max_width:
                 x = pos[0]  # Reset the x.

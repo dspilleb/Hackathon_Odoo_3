@@ -2,8 +2,9 @@ from utils import *
 
 import pygame
 import random
-import copy as cp
+import time
 
+font = pygame.font.SysFont('Verdana', 35)
 #load sprites
 
 COW_SPRITES = [pygame.image.load('assets/images/Odoo_cow/cow0.png'), pygame.image.load('assets/images/Odoo_cow/cow1.png'), pygame.image.load('assets/images/Odoo_cow/cow2.png'), pygame.image.load('assets/images/Odoo_cow/cow3.png')]
@@ -68,21 +69,19 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 
 	x = 0
 	score = 1000
-	start_time = pygame.time.get_ticks()
+	start_time = time.time()
 	while not car.state:
 		display.blit(Highway_sprite, (x, 0))
 		display.blit(Highway_sprite, (x - WIDTH, 0))
 		draw_final_line(display, final_line)
 		display.blit(car.sprite, (car.x, car.y))
 		display_cows(display, Cow_list)
+		render_score(display, score)
 		upd(clock, FPS)
 		x -= car.speed
 		if (x < 0):
 			x = WIDTH
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				pygame.quit()
-				sys.exit()
+		end()
 		keys = pygame.key.get_pressed()
 		vertical_movement_car(keys, car)
 		car_speed(keys, car)
@@ -90,9 +89,8 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 		Cow_list = car_collide_cows(car, Cow_list)
 		update_final_line_position(final_line, car)
 		check_car_win(car, final_line)
-	score -= (pygame.time.get_ticks() / FPS) - start_time
-	score = max(score, 0)
-	print(score)
+		score -= (time.time() - start_time) / 10
+		score = max(score, 0)
 	return score
 
 def draw_final_line(display : pygame.Surface, final_line : Final_line):
@@ -166,3 +164,7 @@ def cow_rotate(cow : Cow):
 	for i in range(len(cow.sprite)):
 		cow.sprite[i] = pygame.transform.rotate(cow.sprite[i], 180)
 	cow.walking_direction = 1 - cow.walking_direction
+
+def render_score (display : pygame.Surface, score : float):
+	text = font.render(str(int(score)), True, Colors.BLUE)
+	display.blit(text, [0, 0])

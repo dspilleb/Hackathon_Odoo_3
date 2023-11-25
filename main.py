@@ -19,6 +19,5 @@ office.activate(display, clock, FPS)
 
 car.activate(display, clock, FPS)
 
-hallway.activate(display, clock, FPS)
-
+# hallway.activate(display, clock, FPS)
 

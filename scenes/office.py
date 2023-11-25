@@ -88,6 +88,10 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 					else: 
 						current += event.unicode
 
+						if current.lower() == answer.lower():
+							stop = True
+							break
+
 				# display the text
 				display.blit(bg, (0, 0))
 				display.blit(question, (0, 0))

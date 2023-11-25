@@ -71,14 +71,6 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	score = 1000
 	start_time = time.time()
 	while not car.state:
-		display.blit(Highway_sprite, (x, 0))
-		display.blit(Highway_sprite, (x - WIDTH, 0))
-		draw_final_line(display, final_line)
-		display.blit(car.sprite, (car.x, car.y))
-		display_cows(display, Cow_list)
-		render_score(display, score)
-		pygame.display.update()
-		upd(clock, FPS)
 		x -= car.speed
 		if (x < 0):
 			x = WIDTH
@@ -92,6 +84,13 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 		check_car_win(car, final_line)
 		score -= (time.time() - start_time) / 10
 		score = max(score, 0)
+		display.blit(Highway_sprite, (x, 0))
+		display.blit(Highway_sprite, (x - WIDTH, 0))
+		draw_final_line(display, final_line)
+		display.blit(car.sprite, (car.x, car.y))
+		display_cows(display, Cow_list)
+		render_score(display, score)
+		upd(clock, FPS)
 	return score
 
 def draw_final_line(display : pygame.Surface, final_line : Final_line):

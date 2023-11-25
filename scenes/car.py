@@ -4,7 +4,7 @@ import pygame
 import random
 import time
 
-font = pygame.font.SysFont('Verdana', 35)
+font = pygame.font.SysFont('VCR_OSD_MONO_1.001.ttf', 40)
 #load sprites
 
 COW_SPRITES = [pygame.image.load('assets/images/Odoo_cow/cow0.png'), pygame.image.load('assets/images/Odoo_cow/cow1.png'), pygame.image.load('assets/images/Odoo_cow/cow2.png'), pygame.image.load('assets/images/Odoo_cow/cow3.png')]
@@ -77,6 +77,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 		display.blit(car.sprite, (car.x, car.y))
 		display_cows(display, Cow_list)
 		render_score(display, score)
+		pygame.display.update()
 		upd(clock, FPS)
 		x -= car.speed
 		if (x < 0):
@@ -166,5 +167,5 @@ def cow_rotate(cow : Cow):
 	cow.walking_direction = 1 - cow.walking_direction
 
 def render_score (display : pygame.Surface, score : float):
-	text = font.render(str(int(score)), True, Colors.BLUE)
+	text = font.render("Score : " + str(int(score)), True, Colors.RED)
 	display.blit(text, [0, 0])

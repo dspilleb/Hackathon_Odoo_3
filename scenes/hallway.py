@@ -23,7 +23,7 @@ questions = {
             "answer" : [1,0,0 ,-1]
         },
         {
-            "question" : "Pourquoi met on une pizza qui est ronde dans une boite carrée et la mange-t-on en forme de triangle ?",
+            "question" : "Pourquoi met on une pizza qui est ronde dans une boite carrée\n et la mange-t-on en forme de triangle ?",
             "choices" : ["Laisse moi tranquille", "Stp je suis occupé", "Demande à Pythagore", "Je ne sais pas"],
             "answer" : [1, 1, 1 , -1]
         },

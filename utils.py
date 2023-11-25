@@ -2,6 +2,8 @@ import pygame
 
 import sys
 
+from typing import Any
+import json
 
 FPS = 30
 HEIGHT = 600
@@ -52,3 +54,16 @@ def get_center_coords(surface: pygame.Surface, *, width=0, height=10) -> tuple[i
 		height = HEIGHT - surface_rect.height
 
 	return width // 2, height // 2
+
+
+def get_data() -> Any:
+	"""Retrieve data from a JSON file using a path."""
+	with open("data.json", 'r') as f:
+		return json.load(f)
+
+
+def upd_data(new_data: Any) -> None:
+	"""Update data in a JSON file"""
+	with open("data.json", 'w') as f:
+		json.dump(new_data, f, indent=4)
+

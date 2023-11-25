@@ -16,7 +16,6 @@ questions = [
 ]
 
 
-#!! so far this just waits for a click
 def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	"""
 	\nFirst mini-game with the office and emails"""

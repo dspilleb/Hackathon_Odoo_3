@@ -90,7 +90,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 		Cow_list = car_collide_cows(car, Cow_list)
 		update_final_line_position(final_line, car)
 		check_car_win(car, final_line)
-	score -= (pygame.time.get_ticks() / 30) - start_time
+	score -= (pygame.time.get_ticks() / FPS) - start_time
 	score = max(score, 0)
 	print(score)
 	return score

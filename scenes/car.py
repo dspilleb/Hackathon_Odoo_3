@@ -3,9 +3,14 @@ from utils import *
 import pygame
 import random
 import time
+import os
 
 font = pygame.font.SysFont('VCR_OSD_MONO_1.001.ttf', 40)
 #load sprites
+pygame.mixer.init()
+audio_vache = 'assets/sons/vache.wav'
+audio_coffee = 'assets/sons/slurp_coffee.mp3'
+
 
 COW_SPRITES = [pygame.image.load('assets/images/Odoo_cow/cow0.png'), pygame.image.load('assets/images/Odoo_cow/cow1.png'), pygame.image.load('assets/images/Odoo_cow/cow2.png'), pygame.image.load('assets/images/Odoo_cow/cow3.png')]
 Highway_sprite = pygame.image.load('assets/images/Highway.png')
@@ -136,14 +141,22 @@ def vertical_movement_car(keys : pygame.key.ScancodeWrapper, car : Car):
 			car.y = HEIGHT - car.sprite.get_height()
 	return
 
+sound_played = False
+
 def car_collide_cows(car : Car, Cow_list : list):
 	new_Cow_list = []
 	for cow in Cow_list:
 		offset = (int(cow.x - car.x), int(cow.y - car.y))
 		if (car.mask.overlap(cow.mask, offset)):
 			car.speed = 0
+			if os.path.exists(audio_vache):
+				son = pygame.mixer.Sound(audio_vache)
+				son.play()
+
 		else:
 			new_Cow_list.append(cow)
+
+
 	return (new_Cow_list)
 
 def car_collide_coffee(car : Car, coffee_list : list):

@@ -80,20 +80,27 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 		keys = pygame.key.get_pressed()
 		vertical_movement_car(keys, car)
 		car_speed(keys, car)
-		update_cow_position(Cow_list, car)
-		Cow_list = car_collide_cows(car, Cow_list)
-		update_final_line_position(final_line, car)
-		check_car_win(car, final_line)
 		score -= (time.time() - start_time) / 10
 		score = max(score, 0)
-		display.blit(Highway_sprite, (x, 0))
-		display.blit(Highway_sprite, (x - WIDTH, 0))
-		draw_final_line(display, final_line)
-		display.blit(car.sprite, (car.x, car.y))
-		display_cows(display, Cow_list)
-		render_score(display, score)
+		update_informations(display, car, Cow_list, final_line)
+		check_car_win(car, final_line)
+		render_car_game(display, car, Cow_list, final_line, x)
 		upd(clock, FPS)
+	
 	return score
+
+def render_car_game(display : pygame.Surface, car : Car, Cow_list : list, final_line : Final_line, x : float):
+	display.blit(Highway_sprite, (x, 0))
+	display.blit(Highway_sprite, (x - WIDTH, 0))
+	draw_final_line(display, final_line)
+	display.blit(car.sprite, (car.x, car.y))
+	display_cows(display, Cow_list)
+	return
+
+def update_informations(display : pygame.Surface, car : Car, Cow_list : list, final_line : Final_line):
+	update_cow_position(Cow_list, car)
+	Cow_list = car_collide_cows(car, Cow_list)
+	update_final_line_position(final_line, car)
 
 def draw_final_line(display : pygame.Surface, final_line : Final_line):
 	pygame.draw.line(display, Colors.RED, (final_line.x, 0), (final_line.x, HEIGHT), LINE_THICKNESS)

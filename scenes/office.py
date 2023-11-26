@@ -75,37 +75,37 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	font = pygame.font.SysFont('Arial', 25)
 	bg = DESKTOP_SPRITE
 	times = []
-	# for email in emails:
+	for email in emails:
 
-	# 	bg = change_desk_to_mail_screen(display, clock, FPS)
-	# 	to_type = font.render(email, True, (128, 128, 128))
+		bg = change_desk_to_mail_screen(display, clock, FPS)
+		to_type = font.render(email, True, (128, 128, 128))
 
-	# 	current_mail = ""
-	# 	start = dt.datetime.now()
-	# 	for char in email:
-	# 		while 1:
-	# 			stop = False
-	# 			# when the user presses a key, check if it matches the current char
-	# 			# if it does, add the char to the current_mail
-	# 			for event in pygame.event.get():
-	# 				if event.type == pygame.KEYDOWN:
-	# 					if event.unicode == char:
-	# 						current_mail += char
-	# 						stop = True
-	# 						break
+		current_mail = ""
+		start = dt.datetime.now()
+		for char in email:
+			while 1:
+				stop = False
+				# when the user presses a key, check if it matches the current char
+				# if it does, add the char to the current_mail
+				for event in pygame.event.get():
+					if event.type == pygame.KEYDOWN:
+						if event.unicode == char:
+							current_mail += char
+							stop = True
+							break
 
-	# 				display.blit(bg, (0, 0))
-	# 				display.blit(to_type, (TEXT_TO_WRITE_POSX, TEXT_TO_WRITE_POSY))
-	# 				text = font.render(current_mail, True, Colors.BLACK)
-	# 				display.blit(text, (TEXT_TO_WRITE_POSX,TEXT_TO_WRITE_POSY))
-	# 				if time.time() % 1 > 0.5:
-	# 					typing_bar(display, font, current_mail)
-	# 				upd(clock, FPS)
+					display.blit(bg, (0, 0))
+					display.blit(to_type, (TEXT_TO_WRITE_POSX, TEXT_TO_WRITE_POSY))
+					text = font.render(current_mail, True, Colors.BLACK)
+					display.blit(text, (TEXT_TO_WRITE_POSX,TEXT_TO_WRITE_POSY))
+					if time.time() % 1 > 0.5:
+						typing_bar(display, font, current_mail)
+					upd(clock, FPS)
 					
-	# 			if stop:
-	# 				break
+				if stop:
+					break
 
-	# times.append((dt.datetime.now() - start).total_seconds())
+		times.append((dt.datetime.now() - start).total_seconds())
 
 	for Q in questions:
 		question = Q["Question"]

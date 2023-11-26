@@ -1,6 +1,7 @@
 from utils import *
 
 import pygame
+import os
 
 import datetime as dt
 import time
@@ -45,8 +46,12 @@ PERSONS_SPRITES = [pygame.transform.smoothscale_by(sprite, 0.1) for sprite in PE
 NOTIFICATION_PHONE_SPRITE = pygame.image.load('assets/images/notification_tel.png')
 NOTIFICATION_PHONE_SPRITE = pygame.transform.smoothscale_by(NOTIFICATION_PHONE_SPRITE, 0.05)
 
+#Sons
+office_sound = "assets/sons/office_sound.mp3"
+notification_sound = "assets/sons/sonnerie_tel.wav"
+
 emails = [
-	"Salut Florence! J'ai oubliée mon code, tu peux me l'envoyer?",
+	"Salut Florence! J'ai oublié mon code, tu peux me l'envoyer?",
 	"Je ne sais pas quoi offrir comme cadeau à Florent, tu as des idées?",
 	"T'as vu?! Lou est enfin passée badge argent sur Phished.io!"
 ]
@@ -75,6 +80,10 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	font = pygame.font.SysFont('Arial', 25)
 	bg = DESKTOP_SPRITE
 	times = []
+
+	if os.path.exists(office_sound):
+		son = pygame.mixer.Sound(office_sound)
+		son.play()
 	for email in emails:
 
 		bg = change_desk_to_mail_screen(display, clock, FPS)
@@ -106,7 +115,9 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 					break
 
 		times.append((dt.datetime.now() - start).total_seconds())
-
+	if os.path.exists(office_sound):
+		son = pygame.mixer.Sound(office_sound)
+		son.play()
 	for Q in questions:
 		question = Q["Question"]
 		answer = Q["Answer"]
@@ -146,6 +157,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 
 		times.append((dt.datetime.now() - start).total_seconds())
 
+	pygame.mixer.stop()
 	return 1000 - sum(times)*3
 
 def typing_bar(display : pygame.Surface, current_font : pygame.font.Font, current_mail : str):
@@ -165,6 +177,9 @@ def change_desk_to_mail_screen(display : pygame.Surface, clock : pygame.time.Clo
 	pygame.display.update()
 	time.sleep(random.randint(1, 5))
 	#afficher une notification
+	if os.path.exists(notification_sound):
+		son = pygame.mixer.Sound(notification_sound)
+		son.play()
 	pop_image(display, NOTIFICATION_SPRITE, SCREEN_TOP_COORDS[0], SCREEN_TOP_COORDS[1])
 	pygame.display.update()
 	time.sleep(0.5)
@@ -181,7 +196,10 @@ def change_desk_to_question_screen(display : pygame.Surface, clock : pygame.time
 	bg = display.copy()
 	pygame.display.update()
 	time.sleep(random.randint(1, 2))
-	#afficher une question
+	#afficher une notification
+	if os.path.exists(notification_sound):
+		son = pygame.mixer.Sound(notification_sound)
+		son.play()
 	pop_image(display, NOTIFICATION_PHONE_SPRITE, WIDTH - 295, HEIGHT - 310)
 	pygame.display.update()
 	time.sleep(0.5)

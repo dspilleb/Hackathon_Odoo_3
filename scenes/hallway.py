@@ -99,7 +99,6 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	bg.blit(dark, (0, 0), special_flags=pygame.BLEND_RGBA_SUB)
 	# Set the initial scale factor
 	scale_factor = 1
-	#TODO BRUITS DE PAS
 	# Set the zoom speed
 	zoom_speed = 0.005
 	scaled_image = bg
@@ -168,7 +167,7 @@ def render_talk(display : pygame.Surface, Person_data : list, bg : pygame.Surfac
 		time.sleep(0.2)
 
 def generate_background_box(display : pygame.Surface, image : pygame.Surface, bg : pygame.Surface, name : str):
-	title_font = pygame.font.SysFont('VCR_OSD_MONO_1.001.ttf', 70)
+	title_font = pygame.font.Font('assets/Angels.ttf', 70)
 	display.blit(bg, bg.get_rect(center=display.get_rect().center))
 	Temporary_surface = pygame.Surface((WIDTH, HEIGHT), flags=pygame.SRCALPHA)
 	border_color = (255, 255, 255, 255)
@@ -179,7 +178,7 @@ def generate_background_box(display : pygame.Surface, image : pygame.Surface, bg
 	display.blit(Temporary_surface, (0, 0))
 	display.blit(image, (30, CHAT_BOX_TOP - image.get_height()))
 	#Render the Name
-	title = title_font.render(name, True, Colors.YELLOW, (128, 128, 128))
+	title = title_font.render(name, True, Colors.YELLOW)
 	display.blit(title, [image.get_width() + (text_general_offset * 4), CHAT_BOX_TOP - image.get_height() / 2])
 
 def generate_multiple_choice(display : pygame.Surface, choices : list, image : pygame.Surface, bg : pygame.Surface, question : str, name : str):
@@ -223,7 +222,7 @@ def render_answer(display : pygame.Surface, answer : int):
 	elif (answer < 0):
 		border_color = (255, 0, 0, 30)
 	else:
-		return
+		border_color = (255, 255, 0, 30)
 	border = pygame.Rect(0, 0, WIDTH, HEIGHT)
 	pygame.draw.rect(Temporary_surface, border_color, border, 30, 10)
 	display.blit(Temporary_surface, (0, 0))

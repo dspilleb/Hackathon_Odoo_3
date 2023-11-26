@@ -13,7 +13,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	bg = pygame.image.load('assets/images/image.png')
 	bg= pygame.transform.scale(bg,(WIDTH,HEIGHT*1.2))
 	# use Arial font
-	font = pygame.font.SysFont('Algerian', 35)
+	font = pygame.font.Font('assets/Roboto-Medium.ttf', 35)
 	# create the text cented horizontally
 	text = font.render('This is the context of the game', True, Colors.WHITE)
 

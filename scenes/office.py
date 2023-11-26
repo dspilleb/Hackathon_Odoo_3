@@ -48,7 +48,7 @@ NOTIFICATION_PHONE_SPRITE = pygame.transform.smoothscale_by(NOTIFICATION_PHONE_S
 
 #Sons
 office_sound = "assets/sons/office_sound.mp3"
-notification_sound = "assets/sons/sonnerie_tel.wav"
+notification_sound = "assets/sons/notification_sound.wav"
 
 emails = [
 	"Salut Florence! J'ai oublié mon code, tu peux me l'envoyer?",
@@ -83,7 +83,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 
 	if os.path.exists(office_sound):
 		son = pygame.mixer.Sound(office_sound)
-		son.play()
+		son.play(-1)
 	for email in emails:
 
 		bg = change_desk_to_mail_screen(display, clock, FPS)
@@ -115,9 +115,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 					break
 
 		times.append((dt.datetime.now() - start).total_seconds())
-	if os.path.exists(office_sound):
-		son = pygame.mixer.Sound(office_sound)
-		son.play()
+
 	for Q in questions:
 		question = Q["Question"]
 		answer = Q["Answer"]

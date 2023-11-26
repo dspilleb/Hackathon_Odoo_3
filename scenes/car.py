@@ -165,6 +165,9 @@ def car_collide_coffee(car : Car, coffee_list : list):
 		offset = (int(coffee.x - car.x), int(coffee.y - car.y))
 		if (car.mask.overlap(coffee.mask, offset)):
 			car.speed *= Car.MULTIPLIER
+			if os.path.exists(audio_coffee):
+				son = pygame.mixer.Sound(audio_coffee)
+				son.play()
 		else:
 			new_coffe_list.append(coffee)
 	return (new_coffe_list)

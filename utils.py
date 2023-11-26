@@ -19,6 +19,8 @@ class Colors:
 	GREEN = (0, 255, 0)
 	YELLOW = (255, 255, 0)
 	GOLD = (255, 215, 0)
+	MAGENTA = (255, 0, 255)
+	
 
 
 def upd(clock: pygame.time.Clock, frames_per_second: int):

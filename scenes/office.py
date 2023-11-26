@@ -77,7 +77,8 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	\nFirst mini-game with the office and emails"""
 	
 	# load the background image
-	font = pygame.font.SysFont('Arial', 25)
+	font = pygame.font.Font('assets/Roboto-Medium.ttf', 20)
+	font_mail = pygame.font.SysFont('Arial', 25)
 	bg = DESKTOP_SPRITE
 	times = []
 
@@ -87,7 +88,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	for email in emails:
 
 		bg = change_desk_to_mail_screen(display, clock, FPS)
-		to_type = font.render(email, True, (128, 128, 128))
+		to_type = font_mail.render(email, True, (128, 128, 128))
 
 		current_mail = ""
 		start = dt.datetime.now()
@@ -105,10 +106,10 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 
 					display.blit(bg, (0, 0))
 					display.blit(to_type, (TEXT_TO_WRITE_POSX, TEXT_TO_WRITE_POSY))
-					text = font.render(current_mail, True, Colors.BLACK)
+					text = font_mail.render(current_mail, True, Colors.BLACK)
 					display.blit(text, (TEXT_TO_WRITE_POSX,TEXT_TO_WRITE_POSY))
 					if time.time() % 1 > 0.5:
-						typing_bar(display, font, current_mail)
+						typing_bar(display, font_mail, current_mail)
 					upd(clock, FPS)
 					
 				if stop:

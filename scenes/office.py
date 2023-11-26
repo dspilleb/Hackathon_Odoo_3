@@ -85,7 +85,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	if os.path.exists(office_sound):
 		son = pygame.mixer.Sound(office_sound)
 		son.play(-1)
-	for email in emails:
+	for email, Q in zip(emails, questions):
 
 		bg = change_desk_to_mail_screen(display, clock, FPS)
 		to_type = font_mail.render(email, True, (128, 128, 128))
@@ -117,7 +117,6 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 
 		times.append((dt.datetime.now() - start).total_seconds())
 
-	for Q in questions:
 		question = Q["Question"]
 		answer = Q["Answer"]
 		question = font.render(question, True, Colors.BLACK)
@@ -215,3 +214,5 @@ def render_answer(display : pygame.Surface, string : str, font : pygame.font.Fon
 	display.blit(pygame.transform.flip(MESSAGE_SPRITE, True, False), (SCREEN_TOP_COORDS[0], SCREEN_BOT_COORDS[1] - MESSAGE_SPRITE.get_height()))
 	text = font.render(string, True, Colors.WHITE)
 	display.blit(text, (SCREEN_TOP_COORDS[0] + 40 ,SCREEN_BOT_COORDS[1] - 75))
+
+# def render_call_from_boos(display : pygame.Surface

@@ -126,7 +126,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int, total_
 	blit_leaderboard(sorted_data)
 	suffix = "er" if index+1 == 1 else "ème"
 
-	txt = font.render(f"Tu es {index+1}{suffix} sur {len(data.keys())} stagières", True, Colors.WHITE)
+	txt = font.render(f"Tu es {index+1}{suffix} sur {len(data.keys())} stagiaires", True, Colors.WHITE)
 	x = get_center_coords(txt, width=WIDTH)[0]
 
 	display.blit(txt, (x, 20))
@@ -136,7 +136,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int, total_
 
 	if index+1 == 1:
 		blit_leaderboard(sorted_data)
-		txt = font.render(f"Tu es le meilleur stagière", True, Colors.WHITE)
+		txt = font.render(f"Tu es le meilleur stagiaire", True, Colors.WHITE)
 		x = get_center_coords(txt, width=WIDTH)[0]
 
 		display.blit(txt, (x, 20))
@@ -166,7 +166,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int, total_
 
 
 		blit_leaderboard(sorted_data)
-		txt = font.render(f"Merci pour ton travail", True, Colors.WHITE)
+		txt = font.render(f"Merci pour ton travail, tu es embauché", True, Colors.WHITE)
 		x = get_center_coords(txt, width=WIDTH)[0]
 
 		display.blit(txt, (x, 20))
@@ -177,7 +177,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int, total_
 	elif index+1 in [2, 3]:
 		# sélectionné
 		blit_leaderboard(sorted_data)
-		txt = font.render(f"félicitation! Tu as été embauché, hâte de te revoir", True, Colors.WHITE)
+		txt = font.render(f"Félicitations! Tu as été embauché, hâte de te revoir", True, Colors.WHITE)
 		x = get_center_coords(txt, width=WIDTH)[0]
 
 		display.blit(txt, (x, 20))
@@ -210,7 +210,4 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int, total_
 	blit_leaderboard(sorted_data)
 	upd(clock, FPS)
 
-	
-	while 1 :
-		end()
-
+	time.sleep(3)

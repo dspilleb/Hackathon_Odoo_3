@@ -11,15 +11,23 @@ pygame.display.set_caption("Odoo Game")
 # creating our frame regulator
 clock = pygame.time.Clock()
 
-from scenes import context, office, car, hallway, boss
+from scenes import context, office, car, hallway, boss, credits
 
-context.activate(display, clock, FPS)
+score = 0
 
-# office.activate(display, clock, FPS)
+#context.activate(display, clock, FPS)
 
-car.activate(display, clock, FPS)
+game1 = int(car.activate(display, clock, FPS))
+score += game1
 
-# hallway.activate(display, clock, FPS)
+game2 = int(office.activate(display, clock, FPS))//3
+score += game2
 
-boss.activate(display, clock, FPS, 0)
+game3 = int(hallway.activate(display, clock, FPS)) * 100
+score += game3
 
+print(game1, game2, game3, score)
+
+boss.activate(display, clock, FPS, score)
+
+credits.activate(display, clock, FPS)

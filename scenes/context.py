@@ -1,7 +1,7 @@
 from utils import *
 import time as t
 import pygame
-
+import os
 # activate shows the bg_filler.png images and the scrolling text
 
 def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
@@ -17,8 +17,11 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	# create the text cented horizontally
 	text = font.render('This is the context of the game', True, Colors.WHITE)
 
-
+	voix = "assets/sons/textreader.mp3"
 	# scroll the text from up to down
+	if os.path.exists(voix):
+		son = pygame.mixer.Sound(voix)
+		son.play()
 	text_1 = "Aujourd'hui, marque le début de ton parcours chez Odoo, et comme chaque stagiaire, tu aspires à décrocher une place durable au sein de l'entreprise."
 	text_2 = "Cependant, seulement les trois meilleurs auront la chance de transformer ce stage en opportunité concrète."
 	text_3 = "Feras-tu partie des heureux élus?"
@@ -27,12 +30,15 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	texts = [text_1, text_2, text_3, text_4]
 	for text in texts:
 		print(text)
+		display.blit(bg, (0, 0))
+		pygame.display.update()
+		t.sleep(0.3)
 		for i in range((HEIGHT//2)-130):
 			# blit dessine l'élément text aux coords 0,i
 			display.blit(bg, (0, 0))
 			
 			#display.blit(text_1, (0, i*3))
-			blit_text(display, text, (0, -i*2+200), font,color=Colors.BLACK)
+			blit_text(display, text, (0, int(-i*1.7)+200), font,color=Colors.BLACK)
 			upd(clock, FPS)
 			end()
 		print("end")

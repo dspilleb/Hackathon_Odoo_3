@@ -67,3 +67,31 @@ def upd_data(new_data: Any) -> None:
 	with open("data.json", 'w') as f:
 		json.dump(new_data, f, indent=4)
 
+
+def pop_image(display: pygame.Surface, image: pygame.Surface, x: int, y: int):
+	scaled_up = pygame.transform.scale(image, (image.get_width() + 10, image.get_height() + 10))
+	scaled_down = pygame.transform.scale(image, (image.get_width() - 10, image.get_height() - 10))
+	bg = display.copy()
+	center_x = x + image.get_width() // 2
+	center_y = y + image.get_height() // 2
+
+	for i in range(20):
+		# Calculate the top left position of the scaled_up or scaled_down image
+		top_left_x = center_x - scaled_up.get_width() // 2
+		top_left_y = center_y - scaled_up.get_height() // 2
+
+		# Clear the previous frame
+		display.blit(bg, (0, 0))
+
+		# Draw the scaled_up or scaled_down image
+		if i < 10:
+			display.blit(scaled_up, (top_left_x, top_left_y))
+		else:
+			display.blit(scaled_down, (top_left_x, top_left_y))
+
+		pygame.display.update()
+
+	# Draw the original image
+	display.blit(bg, (0, 0))
+	display.blit(image, (x, y))
+	pygame.display.update()

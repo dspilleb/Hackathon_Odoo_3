@@ -51,7 +51,7 @@ class Cow:
 
 	def __init__(self):
 		self.y = float(random.randint(0, HEIGHT - Cow.SPRITE_SIZE))
-		self.x = float(random.randint(WIDTH, TOTAL_DISTANCE))
+		self.x = float(random.randint(WIDTH, TOTAL_DISTANCE - Cow.SPRITE_SIZE))
 		self.index = 0
 		self.walking_speed = float(random.randint(1, 3))
 		self.walking_direction = random.randint(0, 1)
@@ -65,7 +65,7 @@ class Coffee:
 	SPRITE_SIZE_X = ODOO_COFFEE_SPRITES.get_width()
 	def __init__(self):
 		self.y = float(random.randint(0, HEIGHT - Cow.SPRITE_SIZE))
-		self.x = float(random.randint(WIDTH, TOTAL_DISTANCE))
+		self.x = float(random.randint(WIDTH, TOTAL_DISTANCE - Coffee.SPRITE_SIZE_X))
 		self.index = 0
 		self.sprite = ODOO_COFFEE_SPRITES
 		self.mask = pygame.mask.from_surface(self.sprite)

@@ -16,11 +16,11 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int, total_
 	bg = pygame.image.load('assets/images/coworkers/final_boss.png')
 	bg = pygame.transform.scale(bg, (WIDTH, HEIGHT))
 
-	font = pygame.font.SysFont('Arial', 25)
+	font = pygame.font.Font('assets/Roboto-Medium.ttf', 25)
 
 
 	text = font.render(f"Bonsoir, on fait un ping pong?", True, Colors.WHITE)
-	text2 = font.render(f"Non, entre ton nom d'abord", True, Colors.WHITE)
+	text2 = font.render(f"Non, entre ton nom d'abord", True, Colors.RED)
 
 	text3 = font.render(f">", True, Colors.WHITE)
 
@@ -45,9 +45,9 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int, total_
 
 			# display the text
 			display.blit(bg, (0, 0))
-			display.blit(text, (100, 200))
-			display.blit(text2, (100, 225))
-			display.blit(text3, (100, 250))
+			display.blit(text, (90, 200))
+			display.blit(text2, (90, 225))
+			display.blit(text3, (90, 250))
 			name = font.render(current, True, Colors.WHITE)
 			display.blit(name, (115,250))
 

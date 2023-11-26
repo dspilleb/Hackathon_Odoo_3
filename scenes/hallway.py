@@ -1,16 +1,17 @@
 import pygame
 from utils import *
 import time
-
+import os
 import random
 
 CHAT_BOX_TOP = HEIGHT - HEIGHT / 3
 CHAT_BOX_LEFT = 0
+text_general_offset = 10
 
 ANSWERS = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4]
 
 questions = {
-    "martin" : [
+    "Martin" : [
         pygame.image.load("assets/images/coworkers/martin.png"),
         {
             "question" : "Si je suis bourré et qu'un moustique me pique, il fait un coma éthylique ?",
@@ -19,7 +20,7 @@ questions = {
         },
         {
             "question" : "Si c'est mauvais de grignoter pendant la nuit, à quoi sert la lumière dans le frigo?",
-            "choices" : ["Pour faire la fête avant de les manger", "Pour le monstre du frigo", "Pour te faire parler", "Je ne sais pas"],
+            "choices" : ["Pour que les légumes fassent la fête avant de les manger", "Pour le monstre du frigo", "Pour te faire parler", "Je ne sais pas"],
             "answer" : [1,0,0 ,-1]
         },
         {
@@ -28,8 +29,8 @@ questions = {
             "answer" : [1, 1, 1 , -1]
         },
     ], 
-    "archibald" : [
-        pygame.image.load("assets/images/coworkers/archibald.png"),
+    "Archibald" : [
+        pygame.transform.smoothscale_by(pygame.image.load("assets/images/coworkers/archibald.png"), 0.7),
         {
             "question" : "Ta cravate est trop moche",
             "choices" : ["Je sais", "La tienne aussi", "J'ai pas de cravate aujourd'hui", "T'as la même"],
@@ -46,7 +47,7 @@ questions = {
             "answer" : [-1, -1, 0, 1]
         }
     ], 
-    "gabriel" : [
+    "Gabriel" : [
         pygame.image.load("assets/images/coworkers/gabriel.png"),
         {
             "question" : "Yo! Tu veux faire des heures supp' avec moi ce week-end ?",
@@ -65,6 +66,25 @@ questions = {
         }
     ],
 }
+shoes_sound = "assets/sons/chaussures.wav"
+archibald_sound = "assets/sons/mr_bean_hello.mp3"
+gabriel_sound = "assets/sons/yo.wav"
+martin_sound = "assets/sons/heehee_sound.mp3"
+
+def name_sound(name):
+	print("bonjour")
+	if name == "Martin":
+		if os.path.exists(martin_sound):
+			son = pygame.mixer.Sound(martin_sound)
+			son.play()
+	elif name == "Archibald":
+		if os.path.exists(archibald_sound):
+			son = pygame.mixer.Sound(archibald_sound)
+			son.play()
+	elif name == "Gabriel":
+		if os.path.exists(gabriel_sound):
+			son = pygame.mixer.Sound(gabriel_sound)
+			son.play()  
 
 def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 
@@ -84,11 +104,11 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	zoom_speed = 0.005
 	scaled_image = bg
 	score = 0
-	for person in questions.values():
+	for name, person in questions.items():
 		# zoom_speed += 0.0001
 		# Calculate the position to center the scaled image on the screen
 		imititate_steps(scale_factor, zoom_speed, bg, display)
-		score = render_talk(display, person, scaled_image)
+		score = render_talk(display, person, scaled_image, name)
 
 		time.sleep(0.1)
 
@@ -97,6 +117,9 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	return score 
 
 def imititate_steps(scale_factor, zoom_speed, bg, display):
+	if os.path.exists(shoes_sound):
+		son = pygame.mixer.Sound(shoes_sound)
+		son.play()
 	for i in range(20):
 		if (scale_factor < 1.5):
 			# Increase the scale factor
@@ -107,40 +130,38 @@ def imititate_steps(scale_factor, zoom_speed, bg, display):
 			display.blit(scaled_image, image_pos)
 			pygame.display.update()
 			time.sleep(0.1)
+	pygame.mixer.stop()
 
 
 
-def generate_chat_box(display : pygame.Surface, str: str, name, image : pygame.Surface, bg : pygame.Surface):
+
+def generate_chat_box(display : pygame.Surface, question: str, name : str, image : pygame.Surface, bg : pygame.Surface):
 	"""
 	Function to generate a chat box with a given string composed of multiple lines.
 	"""
-	generate_background_box(display, image, bg)
-	text_general_offset = 10
+	name_sound(name)
+	print(name)
+	print(1)
+	generate_background_box(display, image, bg, name)
 	text_vertical_offset = 0
 	# Load the fonts
-	title_font = pygame.font.SysFont('Analogist.ttf', 40)
 	font = pygame.font.SysFont('Analogist.ttf', 30)
 
-	#Render the title
-	title = title_font.render(name, True, Colors.YELLOW)
-	text_vertical_offset += title.get_height() + 10
-	display.blit(title, [text_general_offset, CHAT_BOX_TOP + text_general_offset])
-
-	for line in str.splitlines():
+	for line in question.splitlines():
 		# # Render the text
 		text = font.render(line, True, Colors.WHITE)
 		display.blit(text, [text_general_offset, CHAT_BOX_TOP + text_general_offset + text_vertical_offset])
 		text_vertical_offset += text.get_height()
 
-def render_talk(display : pygame.Surface, Person_data : list, bg : pygame.Surface):
+def render_talk(display : pygame.Surface, Person_data : list, bg : pygame.Surface, name : str):
 	"""
 	Function to render a discussion between the player and a person.
 	"""
 	Score = 0
-	generate_chat_box(display, Person_data[1]["question"], "Archibald", Person_data[0], bg)
+	generate_chat_box(display, Person_data[1]["question"], name, Person_data[0], bg)
 	pygame.display.update()
 	for i in range(1, len(Person_data)):
-		generate_multiple_choice(display, Person_data[i]["choices"], Person_data[0], bg, Person_data[i]["question"])
+		generate_multiple_choice(display, Person_data[i]["choices"], Person_data[0], bg, Person_data[i]["question"], name)
 		pygame.display.update()
 		result = Person_data[i]["answer"][wait_for_input()]
 		Score += result
@@ -149,7 +170,8 @@ def render_talk(display : pygame.Surface, Person_data : list, bg : pygame.Surfac
 		time.sleep(0.2)
 	return Score
 
-def generate_background_box(display : pygame.Surface, image : pygame.Surface, bg : pygame.Surface):
+def generate_background_box(display : pygame.Surface, image : pygame.Surface, bg : pygame.Surface, name : str):
+	title_font = pygame.font.SysFont('VCR_OSD_MONO_1.001.ttf', 70)
 	display.blit(bg, bg.get_rect(center=display.get_rect().center))
 	Temporary_surface = pygame.Surface((WIDTH, HEIGHT), flags=pygame.SRCALPHA)
 	border_color = (255, 255, 255, 255)
@@ -159,13 +181,16 @@ def generate_background_box(display : pygame.Surface, image : pygame.Surface, bg
 	pygame.draw.rect(Temporary_surface, border_color, chat_box, 2, 10)
 	display.blit(Temporary_surface, (0, 0))
 	display.blit(image, (30, CHAT_BOX_TOP - image.get_height()))
+	#Render the Name
+	title = title_font.render(name, True, Colors.YELLOW, (128, 128, 128))
+	display.blit(title, [image.get_width() + (text_general_offset * 4), CHAT_BOX_TOP - image.get_height() / 2])
 
-def generate_multiple_choice(display : pygame.Surface, choices : list, image : pygame.Surface, bg : pygame.Surface, question : str):
+def generate_multiple_choice(display : pygame.Surface, choices : list, image : pygame.Surface, bg : pygame.Surface, question : str, name : str):
 	"""
 	Function to generate a multiple choice box with a given list of choices.
 	"""
 	Line_spacing = 15
-	generate_background_box(display, image, bg)
+	generate_background_box(display, image, bg, name)
 	# Load the fonts
 	question_font = pygame.font.SysFont('Analogist.ttf', 30)
 	answer_font = pygame.font.SysFont('Analogist.ttf', 25)

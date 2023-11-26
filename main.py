@@ -15,7 +15,7 @@ from scenes import context, office, car, hallway, boss, credits
 
 score = 0
 
-#context.activate(display, clock, FPS)
+context.activate(display, clock, FPS)
 
 game1 = int(car.activate(display, clock, FPS))
 score += game1

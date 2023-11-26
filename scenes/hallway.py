@@ -135,6 +135,7 @@ def render_talk(display : pygame.Surface, Person_data : list, bg : pygame.Surfac
 	"""
 	Function to render a discussion between the player and a person.
 	"""
+	name_sound(name)
 	Score = 0
 	generate_background_box(display, Person_data[0], bg, name)
 	pygame.display.update()

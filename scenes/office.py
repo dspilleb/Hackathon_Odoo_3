@@ -77,17 +77,18 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	\nFirst mini-game with the office and emails"""
 	
 	# load the background image
-	font = pygame.font.SysFont('Arial', 25)
+	font = pygame.font.Font('assets/Roboto-Medium.ttf', 20)
+	font_mail = pygame.font.SysFont('Arial', 25)
 	bg = DESKTOP_SPRITE
 	times = []
 
 	if os.path.exists(office_sound):
 		son = pygame.mixer.Sound(office_sound)
 		son.play(-1)
-	for email in emails:
+	for email, Q in zip(emails, questions):
 
 		bg = change_desk_to_mail_screen(display, clock, FPS)
-		to_type = font.render(email, True, (128, 128, 128))
+		to_type = font_mail.render(email, True, (128, 128, 128))
 
 		current_mail = ""
 		start = dt.datetime.now()
@@ -105,10 +106,10 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 
 					display.blit(bg, (0, 0))
 					display.blit(to_type, (TEXT_TO_WRITE_POSX, TEXT_TO_WRITE_POSY))
-					text = font.render(current_mail, True, Colors.BLACK)
+					text = font_mail.render(current_mail, True, Colors.BLACK)
 					display.blit(text, (TEXT_TO_WRITE_POSX,TEXT_TO_WRITE_POSY))
 					if time.time() % 1 > 0.5:
-						typing_bar(display, font, current_mail)
+						typing_bar(display, font_mail, current_mail)
 					upd(clock, FPS)
 					
 				if stop:
@@ -116,7 +117,6 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 
 		times.append((dt.datetime.now() - start).total_seconds())
 
-	for Q in questions:
 		question = Q["Question"]
 		answer = Q["Answer"]
 		question = font.render(question, True, Colors.BLACK)
@@ -214,3 +214,5 @@ def render_answer(display : pygame.Surface, string : str, font : pygame.font.Fon
 	display.blit(pygame.transform.flip(MESSAGE_SPRITE, True, False), (SCREEN_TOP_COORDS[0], SCREEN_BOT_COORDS[1] - MESSAGE_SPRITE.get_height()))
 	text = font.render(string, True, Colors.WHITE)
 	display.blit(text, (SCREEN_TOP_COORDS[0] + 40 ,SCREEN_BOT_COORDS[1] - 75))
+
+# def render_call_from_boos(display : pygame.Surface

@@ -83,16 +83,18 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	# Set the zoom speed
 	zoom_speed = 0.005
 	scaled_image = bg
+	score = 0
 	for person in questions.values():
 		# zoom_speed += 0.0001
 		# Calculate the position to center the scaled image on the screen
 		imititate_steps(scale_factor, zoom_speed, bg, display)
-		render_talk(display, person, scaled_image)
+		score = render_talk(display, person, scaled_image)
 
 		time.sleep(0.1)
 
 		upd(clock, FPS)
 		end()
+	return score 
 
 def imititate_steps(scale_factor, zoom_speed, bg, display):
 	for i in range(20):
@@ -145,6 +147,7 @@ def render_talk(display : pygame.Surface, Person_data : list, bg : pygame.Surfac
 		render_answer(display, result)
 		pygame.display.update()
 		time.sleep(0.2)
+	return Score
 
 def generate_background_box(display : pygame.Surface, image : pygame.Surface, bg : pygame.Surface):
 	display.blit(bg, bg.get_rect(center=display.get_rect().center))

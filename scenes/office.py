@@ -46,6 +46,8 @@ PERSONS_SPRITES = [pygame.transform.smoothscale_by(sprite, 0.1) for sprite in PE
 NOTIFICATION_PHONE_SPRITE = pygame.image.load('assets/images/notification_tel.png')
 NOTIFICATION_PHONE_SPRITE = pygame.transform.smoothscale_by(NOTIFICATION_PHONE_SPRITE, 0.05)
 
+BOSS_SPRITE = pygame.image.load('assets/images/coworkers/fab.png')
+
 #Sons
 office_sound = "assets/sons/office_sound.mp3"
 notification_sound = "assets/sons/notification_sound.wav"
@@ -71,13 +73,13 @@ questions = [
 	},
 ]
 
+font = pygame.font.Font('assets/Roboto-Medium.ttf', 20)
 
 def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	"""
 	\nFirst mini-game with the office and emails"""
 	
 	# load the background image
-	font = pygame.font.Font('assets/Roboto-Medium.ttf', 20)
 	font_mail = pygame.font.SysFont('Arial', 25)
 	bg = DESKTOP_SPRITE
 	times = []
@@ -85,6 +87,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	if os.path.exists(office_sound):
 		son = pygame.mixer.Sound(office_sound)
 		son.play(-1)
+	current = ""
 	for email, Q in zip(emails, questions):
 
 		bg = change_desk_to_mail_screen(display, clock, FPS)
@@ -154,7 +157,9 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 				break
 
 		times.append((dt.datetime.now() - start).total_seconds())
-
+	render_answer(display, current, font)
+	pygame.display.update()
+	render_call_from_boss(display)
 	pygame.mixer.stop()
 	return 1000 - sum(times)*3
 
@@ -203,9 +208,10 @@ def change_desk_to_question_screen(display : pygame.Surface, clock : pygame.time
 	time.sleep(0.5)
 	return display
 
-def phone_question(display : pygame.Surface, question : pygame.Surface):
+def phone_question(display : pygame.Surface, question : pygame.Surface, type : int = 1):
 	display.blit(QUESTION_SPRITE, (WIDTH - QUESTION_SPRITE.get_width(), HEIGHT - 365))
-	pop_image(display, PERSONS_SPRITES[random.randint(0, 3)], WIDTH - QUESTION_SPRITE.get_width() + 30, HEIGHT - 100)
+	if (type == 1):
+		pop_image(display, PERSONS_SPRITES[random.randint(0, 3)], WIDTH - QUESTION_SPRITE.get_width() + 30, HEIGHT - 100)
 	display.blit(question, (WIDTH - QUESTION_SPRITE.get_width() + 35, HEIGHT - 50))
 	pygame.display.update()
 	time.sleep(2)
@@ -215,4 +221,12 @@ def render_answer(display : pygame.Surface, string : str, font : pygame.font.Fon
 	text = font.render(string, True, Colors.WHITE)
 	display.blit(text, (SCREEN_TOP_COORDS[0] + 40 ,SCREEN_BOT_COORDS[1] - 75))
 
-# def render_call_from_boos(display : pygame.Surface
+def render_call_from_boss(display : pygame.Surface):
+	time.sleep(0.5)
+	#Mettre une image du Patron
+	pop_image(display, BOSS_SPRITE, WIDTH - BOSS_SPRITE.get_width(), HEIGHT - BOSS_SPRITE.get_height())
+	#Mettre un message du patron
+	phone_question(display, font.render("Viens dans mon bureau tout de suite", True, Colors.RED), 0)
+	pygame.display.update()
+	time.sleep(1)
+	#Mettre un son de sonnerie de téléphone

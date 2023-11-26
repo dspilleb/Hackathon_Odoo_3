@@ -144,7 +144,7 @@ def generate_chat_box(display : pygame.Surface, question: str, name : str, image
 	# Load the fonts
 	font = pygame.font.SysFont('Analogist.ttf', 30)
 
-	for line in question.splitlines():
+	for line in question.split("\n"):
 		# # Render the text
 		text = font.render(line, True, Colors.WHITE)
 		display.blit(text, [text_general_offset, CHAT_BOX_TOP + text_general_offset + text_vertical_offset])

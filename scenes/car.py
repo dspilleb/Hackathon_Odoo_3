@@ -5,7 +5,7 @@ import random
 import time
 import os
 
-font = pygame.font.SysFont('VCR_OSD_MONO_1.001.ttf', 40)
+font = pygame.font.Font('assets/VCR_OSD_MONO_1.001.ttf', 40)
 #load sprites
 pygame.mixer.init()
 audio_vache = 'assets/sons/vache.wav'
@@ -223,5 +223,5 @@ def cow_rotate(cow : Cow):
 	cow.walking_direction = 1 - cow.walking_direction
 
 def render_score (display : pygame.Surface, score : float):
-	text = font.render("Score : " + str(int(score)), True, Colors.RED)
+	text = font.render("Score : " + str(int(score)), True, Colors.MAGENTA, (30, 30, 30, 30))
 	display.blit(text, [0, 0])

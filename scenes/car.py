@@ -122,6 +122,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 		render_score(display, score)
 		upd(clock, FPS)
 	pygame.mixer.stop()
+
 	return score
 
 def draw_final_line(display : pygame.Surface, final_line : Final_line):

@@ -161,7 +161,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	pygame.display.update()
 	render_call_from_boss(display)
 	pygame.mixer.stop()
-	return 1000 - sum(times)*3
+	return 1000 - sum(times)*4
 
 def typing_bar(display : pygame.Surface, current_font : pygame.font.Font, current_mail : str):
 	typing_bar = current_font.render("|", True, (70, 70, 70))

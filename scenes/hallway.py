@@ -129,33 +129,12 @@ def imititate_steps(scale_factor, zoom_speed, bg, display):
 			time.sleep(0.1)
 	pygame.mixer.stop()
 
-
-
-
-def generate_chat_box(display : pygame.Surface, question: str, name : str, image : pygame.Surface, bg : pygame.Surface):
-	"""
-	Function to generate a chat box with a given string composed of multiple lines.
-	"""
-	name_sound(name)
-	print(name)
-	print(1)
-	generate_background_box(display, image, bg, name)
-	text_vertical_offset = 0
-	# Load the fonts
-	font = pygame.font.SysFont('Analogist.ttf', 30)
-
-	for line in question.split("\n"):
-		# # Render the text
-		text = font.render(line, True, Colors.WHITE)
-		display.blit(text, [text_general_offset, CHAT_BOX_TOP + text_general_offset + text_vertical_offset])
-		text_vertical_offset += text.get_height()
-
 def render_talk(display : pygame.Surface, Person_data : list, bg : pygame.Surface, name : str):
 	"""
 	Function to render a discussion between the player and a person.
 	"""
 	Score = 0
-	generate_chat_box(display, Person_data[1]["question"], name, Person_data[0], bg)
+	generate_background_box(display, Person_data[0], bg, name)
 	pygame.display.update()
 	for i in range(1, len(Person_data)):
 		generate_multiple_choice(display, Person_data[i]["choices"], Person_data[0], bg, Person_data[i]["question"], name)
@@ -185,20 +164,24 @@ def generate_multiple_choice(display : pygame.Surface, choices : list, image : p
 	"""
 	Function to generate a multiple choice box with a given list of choices.
 	"""
-	Line_spacing = 15
+	Line_spacing = 10
 	generate_background_box(display, image, bg, name)
 	# Load the fonts
 	question_font = pygame.font.SysFont('Analogist.ttf', 30)
 	answer_font = pygame.font.SysFont('Analogist.ttf', 25)
+	text_vertical_offset = 0
 
-	question_text = question_font.render(question, True, Colors.YELLOW)
-	display.blit(question_text, (Line_spacing, CHAT_BOX_TOP + Line_spacing))
+	question_text = ""
+	for line in question.split("\n"):
+		question_text = question_font.render(line, True, Colors.YELLOW)
+		display.blit(question_text, (Line_spacing, CHAT_BOX_TOP + Line_spacing + text_vertical_offset))
+		text_vertical_offset += question_text.get_height()
 	# #generate the 4 answer boxes
 	for i, choice in enumerate(choices):
 		# Render the text
 		text = answer_font.render(str(i + 1) + ") " + choice, True, Colors.WHITE)
 		# Draw the text
-		display.blit(text, (Line_spacing, CHAT_BOX_TOP + Line_spacing + question_text.get_height() + Line_spacing + choices.index(choice) * 30))
+		display.blit(text, (Line_spacing, CHAT_BOX_TOP + Line_spacing + question_text.get_height() + Line_spacing + choices.index(choice) * 25 + text_vertical_offset))
 	
 
 

@@ -10,6 +10,8 @@ font = pygame.font.SysFont('VCR_OSD_MONO_1.001.ttf', 40)
 pygame.mixer.init()
 audio_vache = 'assets/sons/vache.wav'
 audio_coffee = 'assets/sons/slurp_coffee.mp3'
+audio_voiture = 'assets/sons/voiture_sound.wav'
+
 
 
 COW_SPRITES = [pygame.image.load('assets/images/Odoo_cow/cow0.png'), pygame.image.load('assets/images/Odoo_cow/cow1.png'), pygame.image.load('assets/images/Odoo_cow/cow2.png'), pygame.image.load('assets/images/Odoo_cow/cow3.png')]
@@ -79,6 +81,9 @@ class Final_line:
 def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 	"""
 	\nFunction to play the context of the game"""
+	if os.path.exists(audio_voiture):
+		son = pygame.mixer.Sound(audio_voiture)
+		son.play()
 
 	car = Car()
 	Cow_list = []
@@ -116,6 +121,7 @@ def activate(display: pygame.Surface, clock: pygame.time.Clock, FPS: int):
 		display_cofee(display, Coffee_list)
 		render_score(display, score)
 		upd(clock, FPS)
+	pygame.mixer.stop()
 	return score
 
 def draw_final_line(display : pygame.Surface, final_line : Final_line):
